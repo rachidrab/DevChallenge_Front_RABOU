@@ -46,11 +46,11 @@
 </div>
 
 -->
-
+<app-navbar ></app-navbar>
 <router-outlet *ngIf="!authority"></router-outlet>
 
 <div class="container-scroller" *ngIf="authority">
-  <app-navbar ></app-navbar>
+
   <div class="container-fluid page-body-wrapper">
     <app-sidebar></app-sidebar>
     <div class="main-panel">

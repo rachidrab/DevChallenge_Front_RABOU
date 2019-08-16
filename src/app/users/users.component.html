@@ -1,0 +1,190 @@
+<div class="row">
+<div class="col-lg-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Users</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+
+            <th>
+              Name
+            </th>
+            <th>
+              Username
+            </th>
+            <th>
+              City
+            </th>
+            <th>
+
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users | async">
+
+            <td>
+              {{user.name}}
+            </td>
+            <td>
+              {{user.username}}
+            </td>
+            <td>
+              {{user.address.city}}
+            </td>
+
+
+            <td>
+              <div >
+              <button (click)="showDetails(user)">Details</button>
+              </div>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+</div>
+<!-- Fin du 12g-->
+
+
+
+  <div class="col-lg-12 grid-margin stretch-card">
+  <div class="card" *ngIf="showHideUserDetails" >
+    <div class="card-body">
+      <h4 class="card-title">{{u.name}}'s Infos</h4>
+      <ngb-tabset class="tab-basic">
+
+
+        <ngb-tab title="Home">
+          <ng-template ngbTabContent>
+
+              <div class="col-md-12">
+                <h5 class="mb-3">Infos</h5>
+                <p><strong>Name : </strong>{{u.name}}</p>
+                <p><strong>Username : </strong>{{u.username}}</p>
+                <p><strong>Website : </strong>{{u.website}}</p>
+              </div>
+          </ng-template>
+        </ngb-tab>
+
+
+
+
+        <ngb-tab title="company">
+          <ng-template ngbTabContent>
+
+              <div class="col-md-12">
+                <h5 class="mb-3">Company</h5>
+                <p><strong>Name : </strong>{{u.company.name}}</p>
+                <p><strong>CatchPhrase : </strong>{{u.company.catchPhrase}}</p>
+                <p><strong>BS : </strong>{{u.company.bs}}</p>
+
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+
+
+
+        <ngb-tab title="Contact">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="mb-3">Address</h5>
+                <p><strong>ZipCode : </strong>{{u.address.zipcode}}</p>
+                <p><strong>Suite : </strong>{{u.address.suite}}</p>
+                <p><strong>Street : </strong>{{u.address.street}}</p>
+                <p><strong>City : </strong>{{u.address.city}}</p>
+                <h5 class="mb-3">Contact</h5>
+                <p><strong>Email : </strong>{{u.email}}</p>
+                <p><strong>Phone : </strong>{{u.phone}}</p>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Albums" align="center" *ngIf="isLoggedIn;">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="mb-3">Albums</h5>
+
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+
+                    <th>
+                      Title
+                    </th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let album of albums | async">
+
+                    <td>
+                      {{album.title}}
+                    </td>
+                    <td>
+                      <button (click)="showPhotos(album)">Show Photos</button>
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+                </table>
+                </div>
+
+
+
+              </div>
+
+          </ng-template>
+        </ngb-tab>
+
+
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <div class="row">
+    <div class="col-lg-2 grid-margin stretch-card" *ngFor="let photo of photos | async">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{photo.title}}</h4>
+          <ngb-carousel >
+            <ng-template ngbSlide>
+              <img src="{{photo.thumbnailUrl}}" alt="Random first slide">
+            </ng-template>
+          </ngb-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+

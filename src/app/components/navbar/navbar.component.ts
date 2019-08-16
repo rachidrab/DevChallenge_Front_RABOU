@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import {TokenStorageService} from '../../auth/token-storage.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,8 @@ import {TokenStorageService} from '../../auth/token-storage.service';
 })
 export class NavbarComponent implements OnInit {
   public sidebarOpened = false;
+  roles: string[] = [];
+  isLoggedIn = false;
   info: any;
   toggleOffcanvas() {
     this.sidebarOpened = !this.sidebarOpened;
@@ -20,7 +23,7 @@ export class NavbarComponent implements OnInit {
       document.querySelector('.sidebar-offcanvas').classList.remove('active');
     }
   }
-  constructor(config: NgbDropdownConfig, private tokenStorage: TokenStorageService) {
+  constructor(config: NgbDropdownConfig, private tokenStorage: TokenStorageService, private authService: AuthService) {
     config.placement = 'bottom-right';
   }
   ngOnInit() {
@@ -29,6 +32,10 @@ export class NavbarComponent implements OnInit {
       username: this.tokenStorage.getUsername(),
       authorities: this.tokenStorage.getAuthorities()
     };
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
   }
 
 
